@@ -79,10 +79,10 @@ const translations = {
       subtitle: 'O padrão visual que seus concorrentes gostariam de ter.',
       link: 'Ver Portfolio Completo →',
       items: [
-         { category: "Real Estate", title: "Luxury Home Tour" },
-         { category: "Construção", title: "High-End Roofing" },
-         { category: "Outdoor Living", title: "Modern Landscaping" },
-         { category: "Institucional", title: "Corporate Branding" }
+        { category: "Real Estate", title: "Luxury Home Tour" },
+        { category: "Construção", title: "High-End Roofing" },
+        { category: "Outdoor Living", title: "Modern Landscaping" },
+        { category: "Institucional", title: "Corporate Branding" }
       ]
     },
     testimonials: {
@@ -198,10 +198,10 @@ const translations = {
       subtitle: 'The visual standard your competitors wish they had.',
       link: 'View Full Portfolio →',
       items: [
-         { category: "Real Estate", title: "Luxury Home Tour" },
-         { category: "Construction", title: "High-End Roofing" },
-         { category: "Outdoor Living", title: "Modern Landscaping" },
-         { category: "Institutional", title: "Corporate Branding" }
+        { category: "Real Estate", title: "Luxury Home Tour" },
+        { category: "Construction", title: "High-End Roofing" },
+        { category: "Outdoor Living", title: "Modern Landscaping" },
+        { category: "Institutional", title: "Corporate Branding" }
       ]
     },
     testimonials: {
@@ -252,7 +252,7 @@ const translations = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>('pt');
+  const [language, setLanguage] = useState<Language>('en');
 
   const value = {
     language,

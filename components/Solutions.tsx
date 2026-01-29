@@ -50,29 +50,37 @@ const Solutions: React.FC = () => {
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="relative h-min group rounded-2xl overflow-hidden bg-dark-800 border border-white/10"
+            className="relative h-[350px] md:h-full group rounded-2xl overflow-hidden bg-dark-800 border border-white/10"
           >
-            {/* Video Placeholder with Play Icon */}
-            <div className="aspect-video relative bg-gradient-to-br from-dark-700 to-dark-900 flex items-center justify-center">
-              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDMpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30"></div>
-              
-              {/* Camera/Film Icon */}
-              <motion.div 
-                whileHover={{ scale: 1.1 }}
-                className="relative z-10 w-24 h-24 bg-brand/20 backdrop-blur-sm rounded-full flex items-center justify-center border-2 border-brand/50 group-hover:bg-brand/30 transition-all"
-              >
-                <Film className="w-12 h-12 text-brand" />
-              </motion.div>
-              
-              {/* Decorative Elements */}
-              <div className="absolute top-4 left-4 w-16 h-16 border-2 border-brand/20 rounded-lg"></div>
-              <div className="absolute bottom-4 right-4 w-20 h-20 border-2 border-brand/10 rounded-full"></div>
+            {/* Decorative background texture */}
+            <div className="absolute inset-0 bg-gradient-to-br from-dark-700 to-dark-900">
+               <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDMpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-20"></div>
             </div>
             
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
-            <div className="absolute bottom-6 left-6">
-                <p className="text-brand font-bold mb-1">{t.solutions.imageTag}</p>
-                <h3 className="text-2xl font-bold text-white">{t.solutions.imageTitle}</h3>
+            {/* Subtle glow effect */}
+            <div className="absolute top-1/4 -right-10 w-48 h-48 bg-brand/10 rounded-full blur-[80px]"></div>
+
+            {/* Icon - Repositioned and more elegant */}
+            <div className="absolute top-8 right-8 md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:-mt-8">
+              <motion.div 
+                whileHover={{ scale: 1.05, rotate: 5 }}
+                className="w-20 h-20 md:w-32 md:h-32 bg-brand/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-brand/20 transition-all duration-500"
+              >
+                <Film className="w-10 h-10 md:w-16 md:h-16 text-brand drop-shadow-[0_0_15px_rgba(46,204,113,0.3)]" />
+              </motion.div>
+            </div>
+
+            {/* Content area with better legibility */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+            
+            <div className="absolute bottom-8 left-8 right-8">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-4 h-[2px] bg-brand"></div>
+                  <p className="text-brand font-bold text-xs uppercase tracking-widest leading-none">{t.solutions.imageTag}</p>
+                </div>
+                <h3 className="text-2xl md:text-3xl font-display font-bold text-white leading-tight">
+                    {t.solutions.imageTitle}
+                </h3>
             </div>
           </motion.div>
 
