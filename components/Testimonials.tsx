@@ -6,26 +6,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 const Testimonials: React.FC = () => {
   const { t } = useLanguage();
 
-  const testimonials = [
-    {
-      text: t.testimonials.items[0].text,
-      author: "Carlos M.",
-      company: "CM Construction LLC",
-      role: t.testimonials.items[0].role
-    },
-    {
-      text: t.testimonials.items[1].text,
-      author: "Fernanda L.",
-      company: "Miami Real Estate Group",
-      role: t.testimonials.items[1].role
-    },
-    {
-      text: t.testimonials.items[2].text,
-      author: "Ricardo S.",
-      company: "Green Leaf Landscaping",
-      role: t.testimonials.items[2].role
-    }
-  ];
+  const testimonials = t.testimonials.items;
 
   return (
     <section className="py-24 bg-dark-900 border-t border-white/5">
@@ -37,7 +18,7 @@ const Testimonials: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((t, i) => (
+          {testimonials.map((item: any, i: number) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 30 }}
@@ -48,10 +29,15 @@ const Testimonials: React.FC = () => {
             >
               <Quote className="absolute top-8 right-8 text-brand/20 w-10 h-10" />
               <div className="flex flex-col h-full justify-between">
-                <p className="text-gray-300 italic mb-6 text-base md:text-lg relative z-10 leading-relaxed">"{t.text}"</p>
+                <p className="text-gray-300 italic mb-6 text-base md:text-lg relative z-10 leading-relaxed">"{item.text}"</p>
                 <div>
-                  <p className="text-white font-bold">{t.author}</p>
-                  <p className="text-brand text-sm">{t.role}, {t.company}</p>
+                  <p className="text-white font-bold">{item.author}</p>
+                  <p className="text-brand text-sm">{item.role}, {item.company}</p>
+                  {item.link && (
+                    <a href={`https://${item.link}`} target="_blank" rel="noopener noreferrer" className="text-gray-500 text-xs mt-1 hover:text-white transition-colors block">
+                      {item.link}
+                    </a>
+                  )}
                 </div>
               </div>
             </motion.div>

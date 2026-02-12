@@ -81,23 +81,27 @@ const Hero: React.FC = () => {
               <span className="relative">{t.hero.titlePre}</span>
             </span>
             <br />
-            <span className="relative inline-block">
-              <motion.span
-                animate={{
-                  opacity: [0.3, 0.6, 0.3],
-                  scale: [1, 1.15, 1],
-                  filter: ["blur(40px)", "blur(60px)", "blur(40px)"]
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 0.5
-                }}
-                className="absolute inset-0 bg-brand/50"
-              />
-              <span className="relative">{t.hero.titleBreak} </span>
-            </span>
+            {t.hero.titleBreak && (
+              <>
+                <span className="relative inline-block">
+                  <motion.span
+                    animate={{
+                      opacity: [0.3, 0.6, 0.3],
+                      scale: [1, 1.15, 1],
+                      filter: ["blur(40px)", "blur(60px)", "blur(40px)"]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 0.5
+                    }}
+                    className="absolute inset-0 bg-brand/50"
+                  />
+                  <span className="relative">{t.hero.titleBreak} </span>
+                </span>
+              </>
+            )}
             <span className="relative inline-block">
               <span className="text-transparent bg-clip-text bg-gradient-to-b from-[#82d1aa] to-[#4a8566] cursor-default filter drop-shadow-[0_0_25px_rgba(98,174,136,0.5)]">
                 {t.hero.titleHighlight}
@@ -111,30 +115,16 @@ const Hero: React.FC = () => {
 
           {/* Features List */}
           <div className="flex flex-col gap-3 mb-8 lg:items-start items-center">
-            <div className="flex items-center gap-3 text-gray-300">
-              <div className="w-6 h-6 bg-brand/20 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg className="w-3 h-3 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                </svg>
+            {t.hero.features && t.hero.features.map((feature: string, index: number) => (
+              <div key={index} className="flex items-start gap-3 text-gray-300 text-left">
+                <div className="w-6 h-6 bg-brand/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg className="w-3 h-3 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span className="text-sm font-medium">{feature}</span>
               </div>
-              <span className="text-sm font-medium">{t.hero.cta === 'Agendar Consultoria Grátis' ? 'Resposta em até 2 horas' : 'Response within 2 hours'}</span>
-            </div>
-            <div className="flex items-center gap-3 text-gray-300">
-              <div className="w-6 h-6 bg-brand/20 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg className="w-3 h-3 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <span className="text-sm font-medium">{t.hero.cta === 'Agendar Consultoria Grátis' ? 'Consultoria 100% gratuita' : '100% free consultation'}</span>
-            </div>
-            <div className="flex items-center gap-3 text-gray-300">
-              <div className="w-6 h-6 bg-brand/20 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg className="w-3 h-3 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <span className="text-sm font-medium">{t.hero.cta === 'Agendar Consultoria Grátis' ? 'Sem compromisso' : 'No commitment'}</span>
-            </div>
+            ))}
           </div>
         </motion.div>
 

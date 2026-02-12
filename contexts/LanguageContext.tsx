@@ -20,18 +20,23 @@ const translations = {
     },
     hero: {
       tags: ['Processo', 'Benefícios', 'Portfolio'],
-      titlePre: 'Deixe seus Concorrentes',
-      titleBreak: 'para',
-      titleHighlight: 'Trás',
-      description: 'Produção cinematográfica que transforma empresas de construção e real estate em referências do mercado americano. Autoridade visual que fecha contratos high-end.',
+      titlePre: 'A Produtora de Vídeo N°1 para Construção em',
+      titleBreak: '',
+      titleHighlight: 'Cape Cod',
+      description: 'Não fazemos apenas vídeos. Construímos sua autoridade.',
       cta: 'Agendar Consultoria Grátis',
-      trusted: 'Trusted by Amazing Brands'
+      trusted: 'Trusted by Amazing Brands',
+      features: [
+        'Imagens de drone de alta qualidade',
+        'Produção cinematográfica',
+        'Conteúdo estratégico para resultados reais'
+      ]
     },
     pain: {
       tag: 'Como Funcionamos',
-      title: 'Um time completo de cinema por',
-      titleHighlight: '10x menos que contratar.',
-      description: 'Escale sua presença visual com produção cinematográfica premium, sem burocracia de contratação. Demandas ilimitadas, entrega em dias, não em meses.',
+      title: 'Um time completo de produção cinematográfica',
+      titleHighlight: 'por uma fração do custo de contratar internamente.',
+      description: 'Enquanto você constrói projetos, nós construímos sua marca. Sem burocracia. Sem contratos longos. Só resultado.',
       cta: 'Ver Investimento',
       steps: [
         {
@@ -77,12 +82,12 @@ const translations = {
     portfolio: {
       title: 'Trabalhos Recentes',
       subtitle: 'O padrão visual que seus concorrentes gostariam de ter.',
-      link: 'Ver Portfolio Completo →',
+      link: 'Explorar todos os projetos →',
       items: [
-        { category: "Real Estate", title: "Luxury Home Tour" },
-        { category: "Construção", title: "High-End Roofing" },
-        { category: "Outdoor Living", title: "Modern Landscaping" },
-        { category: "Institucional", title: "Corporate Branding" }
+        { category: "Real Estate", title: "Imóveis & Tours de Alto Padrão" },
+        { category: "Construção", title: "Construção & Obras Cinematográficas" },
+        { category: "Outdoor Living", title: "Paisagismo & Projetos Externos" },
+        { category: "Institucional", title: "Institucionais & Posicionamento de Marca" }
       ]
     },
     testimonials: {
@@ -90,23 +95,32 @@ const translations = {
       titleHighlight: '3x o faturamento.',
       items: [
         {
-          text: "Antes éramos 'mais um empreiteiro'. Hoje fechamos apenas contratos acima de $50k. A mudança foi 100% no posicionamento visual que a CHECK MKT criou.",
-          role: "CEO"
+          text: "Os vídeos profissionais mudaram a forma como o mercado nos enxerga. Ganhamos mais confiança e mais pedidos de orçamento rapidamente.",
+          author: "Felipe Neves",
+          role: "General Manager",
+          company: "Gade Masonry & Landscaping",
+          link: "www.gademasonrylandscaping.com"
         },
         {
-          text: "O vídeo cinematográfico do nosso lançamento vendeu 60% das unidades na primeira semana. ROI de 800%. Qualidade que nunca vi em agência.",
-          role: "Realtor"
+          text: "Nossos projetos passaram a parecer tão premium online quanto são na prática. Essa credibilidade nos ajudou a fechar mais contratos.",
+          author: "Nilson Guasti",
+          role: "Owner",
+          company: "Proline Covering",
+          link: "www.prolinecovering.com"
         },
         {
-          text: "Tinha medo de investir em marketing. Em 90 dias nossa presença digital gerou $180k em contratos fechados. Eles entendem o mercado americano.",
-          role: "Founder"
+          text: "As imagens de alto padrão geraram confiança imediata e trouxeram projetos maiores e clientes mais qualificados.",
+          author: "Rafael Ribeiro",
+          role: "Owner",
+          company: "Living Waters Gunite Pools & Spas",
+          link: "www.lwgpoolsandspas.com"
         }
       ]
     },
     contact: {
       title: 'Pronto para fechar contratos',
-      titleHighlight: '3x maiores?',
-      description: 'Consultoria gratuita de 30 minutos. Analisamos sua presença atual e mostramos exatamente como elevar seu posicionamento para competir com as grandes empresas.',
+      titleHighlight: 'até 3x maiores?',
+      description: 'Consultoria estratégica gratuita de 30 minutos. Analisamos sua presença atual e mostramos exatamente como vídeos profissionais e marketing visual podem posicionar sua empresa para competir com grandes construtoras, gerar mais autoridade e conquistar contratos melhores.',
       labels: {
         name: 'Nome Completo',
         company: 'Empresa',
@@ -115,6 +129,14 @@ const translations = {
         goal: 'Qual seu principal objetivo?',
         submit: 'Agendar Consultoria Gratuita',
         secure: 'Seus dados estão seguros. Entraremos em contato em até 24h.'
+      },
+      info: {
+        emailLabel: 'Email',
+        emailValue: 'contato@checkmkt.com',
+        whatsappLabel: 'WhatsApp',
+        whatsappValue: '+1 (555) 123-4567',
+        servingLabel: 'Atendimento',
+        servingValue: 'USA & Brasil'
       },
       goals: [
         'Melhorar posicionamento de marca',
@@ -139,18 +161,23 @@ const translations = {
     },
     hero: {
       tags: ['Process', 'Benefits', 'Portfolio'],
-      titlePre: 'Leave Your Competition',
-      titleBreak: 'Far',
-      titleHighlight: 'Behind',
-      description: 'Cinematic production that transforms construction and real estate companies into market leaders. Visual authority that closes high-end contracts.',
+      titlePre: 'The #1 Video Marketing Company for Construction in',
+      titleBreak: '',
+      titleHighlight: 'Cape Cod',
+      description: 'We don’t just make videos. We build your authority.',
       cta: 'Book Free Consultation',
-      trusted: 'Trusted by Amazing Brands'
+      trusted: 'Trusted by Amazing Brands',
+      features: [
+        'High-end drone footage',
+        'Cinematic production',
+        'Strategic content designed to generate real business results'
+      ]
     },
     pain: {
       tag: 'How We Work',
       title: 'Get a design and video team for a',
       titleHighlight: 'fraction of the cost.',
-      description: 'Scale your brand with high-end design and cinematic production without the overhead of hiring in-house. Subscribe and request as much as you need.',
+      description: 'While you build projects, we build your brand. No bureaucracy. No long contracts. Just results.',
       cta: 'View Plans',
       steps: [
         {
@@ -196,12 +223,12 @@ const translations = {
     portfolio: {
       title: 'Recent Work',
       subtitle: 'The visual standard your competitors wish they had.',
-      link: 'View Full Portfolio →',
+      link: 'Explore all projects →',
       items: [
-        { category: "Real Estate", title: "Luxury Home Tour" },
-        { category: "Construction", title: "High-End Roofing" },
-        { category: "Outdoor Living", title: "Modern Landscaping" },
-        { category: "Institutional", title: "Corporate Branding" }
+        { category: "Real Estate", title: "Real Estate Showcase" },
+        { category: "Construction", title: "Cinematic Roofing & Construction" },
+        { category: "Outdoor Living", title: "Landscaping & Outdoor Projects" },
+        { category: "Institutional", title: "Institutional & Brand Films" }
       ]
     },
     testimonials: {
@@ -209,23 +236,32 @@ const translations = {
       titleHighlight: 'grew.',
       items: [
         {
-          text: "Our brand perception changed completely. We used to be seen as 'just another contractor', now we close high-end contracts because clients trust what they see on Instagram.",
-          role: "CEO"
+          text: "Professional videos transformed how clients see us. We gained more trust and more estimate requests almost immediately.",
+          author: "Felipe Neves",
+          role: "General Manager",
+          company: "Gade Masonry & Landscaping",
+          link: "www.gademasonrylandscaping.com"
         },
         {
-          text: "The video CHECK MKT made for our real estate launch was responsible for selling 60% of units in the first week. Cinema quality.",
-          role: "Realtor"
+          text: "Our projects finally look as premium online as they are in real life. That credibility helped us close more contracts.",
+          author: "Nilson Guasti",
+          role: "Owner",
+          company: "Proline Covering",
+          link: "www.prolinecovering.com"
         },
         {
-          text: "I was hesitant to invest in marketing, but the return was absurd. They understand the US market and know how to position us here.",
-          role: "Founder"
+          text: "High end visuals built instant trust with clients and brought us better, higher value projects.",
+          author: "Rafael Ribeiro",
+          role: "Owner",
+          company: "Living Waters Gunite Pools & Spas",
+          link: "www.lwgpoolsandspas.com"
         }
       ]
     },
     contact: {
-      title: 'Ready to look',
-      titleHighlight: 'Giant?',
-      description: 'Fill out the form to schedule a free consultation. We will analyze your current presence and outline a visual production plan.',
+      title: 'Ready to close contracts',
+      titleHighlight: 'up to 3x bigger?',
+      description: 'Free 30 minute strategy session. We analyze your current presence and show you exactly how professional video and visual marketing can position your company to compete with larger contractors, build authority and win better jobs.',
       labels: {
         name: 'Full Name',
         company: 'Company',
@@ -234,6 +270,14 @@ const translations = {
         goal: 'What is your main goal?',
         submit: 'Schedule Free Consultation',
         secure: 'Your data is secure. We will contact you within 24h.'
+      },
+      info: {
+        emailLabel: 'Email',
+        emailValue: 'contact@checkmkt.com',
+        whatsappLabel: 'WhatsApp',
+        whatsappValue: '+1 (555) 123-4567',
+        servingLabel: 'Serving',
+        servingValue: 'USA & Brazil'
       },
       goals: [
         'Improve Brand Positioning',

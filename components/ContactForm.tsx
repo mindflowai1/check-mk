@@ -13,9 +13,9 @@ const ContactForm: React.FC = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row gap-16">
-          
+
           {/* Info Side */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -34,8 +34,8 @@ const ContactForm: React.FC = () => {
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Email</p>
-                  <p className="font-medium">contato@checkmkt.com</p>
+                  <p className="text-sm text-gray-500">{t.contact.info?.emailLabel || 'Email'}</p>
+                  <p className="font-medium">{t.contact.info?.emailValue || 'contato@checkmkt.com'}</p>
                 </div>
               </div>
               <div className="flex items-center gap-4 text-gray-300">
@@ -43,8 +43,8 @@ const ContactForm: React.FC = () => {
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">WhatsApp</p>
-                  <p className="font-medium">+1 (555) 123-4567</p>
+                  <p className="text-sm text-gray-500">{t.contact.info?.whatsappLabel || 'WhatsApp'}</p>
+                  <p className="font-medium">{t.contact.info?.whatsappValue || '+1 (555) 123-4567'}</p>
                 </div>
               </div>
               <div className="flex items-center gap-4 text-gray-300">
@@ -52,15 +52,15 @@ const ContactForm: React.FC = () => {
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Atendimento</p>
-                  <p className="font-medium">USA & Brasil</p>
+                  <p className="text-sm text-gray-500">{t.contact.info?.servingLabel || 'Atendimento'}</p>
+                  <p className="font-medium">{t.contact.info?.servingValue || 'USA & Brasil'}</p>
                 </div>
               </div>
             </div>
           </motion.div>
 
           {/* Form Side */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -93,7 +93,7 @@ const ContactForm: React.FC = () => {
                 <label className="block text-sm font-medium text-gray-400 mb-2">{t.contact.labels.goal}</label>
                 <select className="w-full bg-dark-800 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all appearance-none">
                   {t.contact.goals.map((goal: string, idx: number) => (
-                     <option key={idx}>{goal}</option>
+                    <option key={idx}>{goal}</option>
                   ))}
                 </select>
               </div>
@@ -102,7 +102,7 @@ const ContactForm: React.FC = () => {
                 <Send className="w-5 h-5" />
                 {t.contact.labels.submit}
               </button>
-              
+
               <p className="text-center text-xs text-gray-500 mt-4">
                 {t.contact.labels.secure}
               </p>
