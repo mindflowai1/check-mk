@@ -1,30 +1,18 @@
 import React from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import PainPoints from './components/PainPoints';
-import Solutions from './components/Solutions';
-import Portfolio from './components/Portfolio';
-import Testimonials from './components/Testimonials';
-import ContactForm from './components/ContactForm';
-import Footer from './components/Footer';
-import FloatingWhatsApp from './components/FloatingWhatsApp';
 import { LanguageProvider } from './contexts/LanguageContext';
+import NewHero from './components/NewHero';
+import AboutSection from './components/AboutSection';
+import PortfolioSection from './components/PortfolioSection';
+import ReviewsSection from './components/ReviewsSection';
 
 function App() {
   return (
     <LanguageProvider>
-      <div className="min-h-screen bg-dark-900 text-white selection:bg-brand selection:text-black">
-        <Navbar />
-        <main>
-          <Hero />
-          <PainPoints />
-          <Solutions />
-          <Portfolio />
-          <Testimonials />
-          <ContactForm />
-        </main>
-        <Footer />
-        <FloatingWhatsApp />
+      <div className="bg-[#09090b] text-white">
+        <NewHero />
+        <AboutSection />
+        <PortfolioSection />
+        <ReviewsSection />
       </div>
     </LanguageProvider>
   );
