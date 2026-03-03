@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowUpRight, ChevronDown } from 'lucide-react';
 
 const categories = ['All', 'High-End Homes', 'Commercial', 'Drone Footage'];
 
@@ -10,35 +10,35 @@ const portfolioItems = [
         title: 'Modern Luxury Estate',
         category: 'High-End Homes',
         description: 'Cinematic tour of a $5M property, highlighting architectural details and lighting.',
-        image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80',
+        image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=85',
     },
     {
         id: 2,
         title: 'Downtown Skyscraper',
         category: 'Commercial',
         description: 'Dynamic FPV drone shots weaving through an active commercial construction site.',
-        image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=80',
+        image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=85',
     },
     {
         id: 3,
         title: 'Coastal Villa Aerials',
         category: 'Drone Footage',
         description: 'Breathtaking sunset aerial tracking shots showcasing property boundaries and views.',
-        image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80',
+        image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=85',
     },
     {
         id: 4,
         title: 'Boutique Hotel Renovation',
         category: 'Commercial',
         description: 'Fast-paced transformation reel capturing the essence of the new interior design.',
-        image: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=600&q=80',
+        image: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=85',
     },
     {
         id: 5,
         title: 'Industrial Complex',
         category: 'Commercial',
         description: 'Detail-oriented showcase of modern industrial facilities mixing ground and drone work.',
-        image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=600&q=80',
+        image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=800&q=85',
     },
 ];
 
@@ -50,77 +50,127 @@ const PortfolioSection: React.FC = () => {
         item => activeCategory === 'All' || item.category === activeCategory
     );
 
-    // Se "showAll" for falso, pegamos no máximo 3. Senão pegamos todos.
     const visibleItems = showAll ? filteredItems : filteredItems.slice(0, 3);
 
     return (
-        <section className="relative w-full py-32 lg:py-48 bg-[#121214] text-white">
+        <section id="portfolio" className="relative w-full py-24 lg:py-32 bg-[#fcfdfd] text-slate-900">
             <div className="max-w-[1100px] mx-auto px-6 lg:px-8">
 
-                {/* Header (Stacked Left, exactly like image) */}
-                <span className="text-white/60 text-[11px] font-bold tracking-[0.2em] uppercase mb-4 block">
-                    Gallery
-                </span>
+                {/* Header — eyebrow + extending rule */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.6 }}
+                    className="flex items-center gap-5 mb-6"
+                >
+                    <span className="text-slate-400 text-[10.5px] font-bold tracking-[0.2em] uppercase shrink-0">
+                        Gallery
+                    </span>
+                    <div className="flex-1 h-px bg-slate-200" />
+                </motion.div>
 
-                <h2 className="font-display font-medium text-[2.8rem] md:text-[3.8rem] leading-tight tracking-tight text-white mb-10 md:mb-14">
+                <motion.h2
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                    className="font-display font-medium text-[2.8rem] md:text-[4rem] leading-[1.04] tracking-[-0.025em] text-slate-900 mb-12 md:mb-16"
+                >
                     Our Realizations
-                </h2>
+                </motion.h2>
 
-                {/* Filters (Aligned left, active state with square border) */}
-                <div className="flex items-center gap-4 overflow-x-auto pb-6 mb-12 scrollbar-hide">
+                {/* Filters */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="flex items-center gap-2 overflow-x-auto pb-4 mb-14 scrollbar-hide"
+                >
                     {categories.map((category) => (
                         <button
                             key={category}
                             onClick={() => {
                                 setActiveCategory(category);
-                                setShowAll(false); // reseta ao trocar de categoria
+                                setShowAll(false);
                             }}
-                            className={`relative text-[13px] font-medium whitespace-nowrap transition-all duration-300 px-5 py-2 ${activeCategory === category
-                                ? 'text-white border border-white/30'
-                                : 'text-white/40 hover:text-white/80 border border-transparent'
+                            className={`relative text-[11px] font-bold tracking-wider uppercase whitespace-nowrap transition-all duration-300 px-5 py-2.5 rounded-full ${activeCategory === category
+                                ? 'text-white bg-[#43755C] shadow-md ring-1 ring-[#43755C]/20'
+                                : 'text-slate-500 bg-white hover:text-slate-900 hover:bg-slate-50 border border-slate-200 shadow-sm'
                                 }`}
                         >
                             {category}
                         </button>
                     ))}
-                </div>
+                </motion.div>
 
-                {/* Portfolio Display - 3 cards per row exactly like the image grid size */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-14 pb-10">
-                    <AnimatePresence mode='popLayout'>
-                        {visibleItems.map((item) => (
+                {/* Portfolio Grid */}
+                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-1 md:gap-x-10 md:gap-y-16 pb-10">
+                    <AnimatePresence mode="popLayout">
+                        {visibleItems.map((item, index) => (
                             <motion.div
                                 key={item.id}
                                 layout
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.95 }}
-                                transition={{ duration: 0.4, ease: "easeOut" }}
+                                initial={{ opacity: 0, y: 40 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-50px" }}
+                                exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                                transition={{
+                                    duration: 0.5,
+                                    ease: [0.25, 0.46, 0.45, 0.94],
+                                    delay: index * 0.1,
+                                }}
                                 className="group cursor-pointer flex flex-col w-full"
                             >
-                                {/* Video Thumbnail (Square aspect ratio matching image) */}
-                                <div className="relative w-full aspect-square bg-[#27272a] overflow-hidden mb-6">
+                                {/* Image Container (Square on Mobile like IG, 3/2 on Desktop) */}
+                                <div className="relative w-full aspect-square md:aspect-[3/2] bg-slate-100 overflow-hidden md:mb-6 rounded-none md:rounded-md shadow-sm">
+
+                                    {/* Index number — hidden on mobile for cleaner IG look */}
+                                    <span className="hidden md:block absolute top-3.5 left-4 z-10 text-[11px] font-bold text-white/70 tracking-[0.12em] tabular-nums select-none drop-shadow-md">
+                                        {String(index + 1).padStart(2, '0')}
+                                    </span>
+
+                                    {/* Hover Arrow for Desktop */}
+                                    <div className="hidden absolute top-3.5 right-3.5 z-10 w-9 h-9 rounded-full bg-white backdrop-blur-md shadow-lg border border-slate-100 md:flex items-center justify-center opacity-0 group-hover:opacity-100 -translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out">
+                                        <ArrowUpRight className="w-4 h-4 text-slate-800" />
+                                    </div>
+
                                     <img
                                         src={item.image}
                                         alt={item.title}
-                                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] opacity-80 group-hover:opacity-100"
+                                        className="w-full h-full object-cover transition-all duration-700 ease-out md:group-hover:scale-[1.05]"
                                     />
 
-
-                                </div>
-
-                                {/* Content Below Thumbnail */}
-                                <div className="flex flex-col flex-grow text-left">
-                                    <div className="mb-4">
-                                        <span className="text-[#62AE88] text-[11px] font-medium pb-[3px] border-b border-[#62AE88]">
+                                    {/* Mobile Only: Inner Overlay Text mimicking Reels/TikTok covers */}
+                                    <div className="absolute xl:hidden inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex md:hidden flex-col justify-end p-3 pointer-events-none">
+                                        <span className="text-[#62AE88] text-[8.5px] font-bold tracking-[0.15em] uppercase mb-1 drop-shadow-md">
                                             {item.category}
                                         </span>
+                                        <h3 className="font-display text-[13.5px] font-bold text-white leading-tight drop-shadow-md">
+                                            {item.title}
+                                        </h3>
                                     </div>
 
-                                    <h3 className="font-display text-[1.1rem] md:text-[18px] font-medium text-white mb-2 leading-snug group-hover:text-white/80 transition-colors">
+                                    {/* Persistent bottom vignette on Desktop to keep contrast if needed */}
+                                    <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
+                                </div>
+
+                                {/* Content — Desktop Only */}
+                                <div className="hidden md:flex flex-col flex-grow px-1.5">
+
+                                    {/* Category row with expanding line */}
+                                    <div className="flex items-center gap-3 mb-3.5">
+                                        <span className="text-[#43755C] text-[10px] font-bold tracking-[0.14em] uppercase shrink-0">
+                                            {item.category}
+                                        </span>
+                                        <div className="flex-1 h-px bg-slate-200" />
+                                    </div>
+
+                                    <h3 className="font-display text-[17px] font-bold text-slate-900 mb-2.5 leading-snug tracking-[-0.015em] group-hover:text-[#43755C] transition-colors duration-300">
                                         {item.title}
                                     </h3>
-                                    <p className="text-white/40 text-[13px] leading-relaxed line-clamp-3">
+                                    <p className="text-slate-500 text-[13.5px] leading-relaxed line-clamp-2 pr-4">
                                         {item.description}
                                     </p>
                                 </div>
@@ -129,23 +179,32 @@ const PortfolioSection: React.FC = () => {
                     </AnimatePresence>
                 </div>
 
-                {/* Show More Button (Minimalist, only shows if there's more to show) */}
+                {/* View More */}
                 {filteredItems.length > 3 && (
-                    <div className="w-full flex justify-center mt-2">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        className="w-full flex justify-center mt-2 pt-12 border-t border-slate-200"
+                    >
                         <button
                             onClick={() => setShowAll(!showAll)}
-                            className="group flex items-center gap-3 text-white/50 hover:text-white transition-colors duration-300 text-[13px] font-medium uppercase tracking-[0.1em]"
+                            className="group flex items-center gap-3 text-slate-500 hover:text-[#43755C] transition-all duration-300 text-[11px] font-bold uppercase tracking-[0.16em]"
                         >
                             {showAll ? 'View Less' : 'View More Works'}
-                            <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:border-white transition-colors duration-300">
-                                <ArrowRight className={`w-3.5 h-3.5 transition-transform duration-300 ${showAll ? '-rotate-90' : 'rotate-90'}`} />
+                            <div
+                                className="w-9 h-9 rounded-full border border-slate-200 bg-white shadow-sm flex items-center justify-center group-hover:border-[#43755C]/30 group-hover:bg-slate-50 transition-all duration-300"
+                                style={{ transform: showAll ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                            >
+                                <ChevronDown className="w-4 h-4" />
                             </div>
                         </button>
-                    </div>
+                    </motion.div>
                 )}
 
             </div>
-        </section>
+        </section >
     );
 };
 

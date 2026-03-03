@@ -10,10 +10,14 @@
     --color-dark-700: #27272a;
 
     --font-sans: 'Inter', sans-serif;
-    --font-display: 'Outfit', sans-serif;
+    --font-display: 'Plus Jakarta Sans', sans-serif;
 }
 
 @layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
     body {
         @apply bg-dark-900 text-white font-sans antialiased;
     }
@@ -35,4 +39,17 @@
 
 ::-webkit-scrollbar-thumb:hover {
     background: #62AE88;
+}
+
+@layer utilities {
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
 }
