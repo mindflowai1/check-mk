@@ -253,7 +253,7 @@ const NewHero: React.FC = () => {
                     <div className="h-[88px] shrink-0 pointer-events-none" />
 
                     {/* ═══════════════ HERO CONTENT ═══════════════ */}
-                    <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 text-center shrink min-h-0">
+                    <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 sm:px-10 md:px-4 text-center shrink min-h-0">
 
                         {/* Premium pill badge */}
                         <motion.div
@@ -270,13 +270,13 @@ const NewHero: React.FC = () => {
                             variants={fadeUp} initial="hidden" animate="visible" custom={1}
                             className="mb-3 select-none"
                         >
-                            <span className="block font-display font-semibold text-[1.6rem] md:text-[2.2rem] lg:text-[2.8rem] tracking-tight text-white/90 leading-tight">
+                            <span className="block font-display font-semibold text-[1.35rem] sm:text-[1.6rem] md:text-[2.2rem] lg:text-[2.8rem] tracking-tight text-white/90 leading-tight">
                                 The #1 Video Marketing Company
                             </span>
-                            <span className="block font-display font-medium text-[1.2rem] md:text-[1.6rem] lg:text-[2rem] tracking-normal text-white/60 leading-tight mt-1">
+                            <span className="block font-display font-medium text-[1rem] sm:text-[1.2rem] md:text-[1.6rem] lg:text-[2rem] tracking-normal text-white/60 leading-tight mt-1">
                                 for Construction in
                             </span>
-                            <span className="block mt-1 font-display font-bold text-[3.5rem] md:text-[5.5rem] lg:text-[7.5rem] leading-[0.9] tracking-tighter text-white drop-shadow-md">
+                            <span className="block mt-1 font-display font-bold text-[2.4rem] sm:text-[3rem] md:text-[5.5rem] lg:text-[7.5rem] leading-[0.9] tracking-tighter text-white drop-shadow-md">
                                 Massachusetts<span className="text-[#62AE88]">.</span>
                             </span>
                         </motion.div>
