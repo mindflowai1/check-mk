@@ -13,19 +13,51 @@ const HeroForm: React.FC = () => {
     phone: ''
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const webhookUrl = 'https://n8n-n8n-start.kof6cn.easypanel.host/webhook/ea66ef53-6913-4e75-aeb7-d8ab498c848c';
+
   const handleNext = () => {
     if (step === 1 && formData.name) {
       setStep(2);
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.email && formData.phone) {
-      // Handle the form submission
-      alert('Obrigado! Entraremos em contato em breve.');
-      setFormData({ name: '', company: '', email: '', phone: '' });
-      setStep(1);
+    if (formData.email && formData.phone && !isSubmitting) {
+      setIsSubmitting(true);
+      try {
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...formData,
+            source: 'Hero Form',
+            timestamp: new Date().toISOString(),
+          }),
+        });
+
+        if (response.ok) {
+          const successMsg = language === 'pt'
+            ? 'Obrigado! Entraremos em contato em breve.'
+            : 'Thank you! We will contact you shortly.';
+          alert(successMsg);
+          setFormData({ name: '', company: '', email: '', phone: '' });
+          setStep(1);
+        } else {
+          throw new Error('Erro ao enviar o formulário.');
+        }
+      } catch (error) {
+        const errorMsg = language === 'pt'
+          ? 'Houve um erro ao enviar seus dados. Por favor, tente novamente.'
+          : 'There was an error sending your data. Please try again.';
+        alert(errorMsg);
+        console.error('Form error:', error);
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -194,14 +226,14 @@ const HeroForm: React.FC = () => {
                       </button>
                       <button
                         type="submit"
-                        disabled={!formData.email || !formData.phone}
+                        disabled={!formData.email || !formData.phone || isSubmitting}
                         className={`flex-1 py-4 rounded-xl font-bold text-[15px] flex items-center justify-between px-6 transition-all ${
-                          formData.email && formData.phone
+                          formData.email && formData.phone && !isSubmitting
                             ? 'bg-[#559172] text-white hover:bg-[#62AE88] hover:-translate-y-0.5 shadow-[0_0_15px_rgba(98,174,136,0.2)] hover:shadow-[0_0_25px_rgba(98,174,136,0.4)]'
                             : 'bg-white/5 text-white/20 cursor-not-allowed border border-white/5'
                         }`}
                       >
-                        <span>{language === 'pt' ? 'Finalizar' : 'Complete'}</span>
+                        <span>{isSubmitting ? (language === 'pt' ? 'Enviando...' : 'Sending...') : (language === 'pt' ? 'Finalizar' : 'Complete')}</span>
                         <ArrowRight className="w-4 h-4 ml-2" />
                       </button>
                     </div>

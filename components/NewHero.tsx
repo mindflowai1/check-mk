@@ -104,14 +104,10 @@ const NewHero: React.FC = () => {
 
                 {/* Overlays */}
                 <div className="absolute inset-0 bg-black/20 z-[1]" />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/80 z-[2]" />
-                <div
-                    className="absolute inset-0 z-[3] pointer-events-none"
-                    style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 75%)' }}
-                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-transparent z-[2]" />
                 <div
                     className="absolute inset-0 z-[4] pointer-events-none"
-                    style={{ background: 'radial-gradient(ellipse 100% 100% at 50% 50%, transparent 60%, rgba(0,0,0,0.4) 100%)' }}
+                    style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 40%)' }}
                 />
                 <div
                     className="absolute inset-0 z-[5] pointer-events-none opacity-[0.04]"
@@ -324,8 +320,7 @@ const NewHero: React.FC = () => {
 
                         {/* ── DESKTOP: All 3 Features row ── */}
                         <div
-                            className="hidden md:block relative z-20 w-full py-7 border-t border-white/[0.07]"
-                            style={{ background: 'rgba(0,0,0,0.52)', backdropFilter: 'blur(14px)' }}
+                            className="hidden md:block relative z-20 w-full py-10 border-y border-white/[0.1] bg-[#09090b]"
                         >
                             <div className="max-w-[1200px] mx-auto w-full px-6 flex flex-row items-stretch">
                                 {features.map((feature, i) => (

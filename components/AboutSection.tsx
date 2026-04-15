@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 
 const AboutSection: React.FC = () => {
     return (
-        <section id="about" className="relative w-full min-h-[66vh] flex items-center py-16 lg:py-20 bg-[#fcfdfd] text-slate-900 overflow-hidden">
+        <section id="about" className="relative w-full min-h-[60vh] flex flex-col pt-32 pb-20 lg:pt-48 lg:pb-24 bg-[#fcfdfd] text-slate-900 overflow-hidden">
             {/* Background subtle elements */}
             <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-[#62AE88]/5 to-transparent pointer-events-none" />
             <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-[#62AE88]/10 blur-[120px] pointer-events-none" />
