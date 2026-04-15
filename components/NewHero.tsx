@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { ArrowRight, Aperture, Clapperboard, Target, ChevronDown, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
+import HeroForm from './HeroForm';
 
 /* ─── Animation variants ────────────────────────────────── */
 const fadeUp = {
@@ -252,55 +253,70 @@ const NewHero: React.FC = () => {
                     {/* Placeholder to prevent layout shift */}
                     <div className="h-[88px] shrink-0 pointer-events-none" />
 
-                    {/* ═══════════════ HERO CONTENT ═══════════════ */}
-                    <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 sm:px-10 md:px-4 text-center shrink min-h-0">
+                    {/* ═══════════════ HERO CONTENT (Split Layout) ═══════════════ */}
+                    <div className="relative z-10 flex-1 flex flex-col justify-center px-6 sm:px-10 lg:px-12 max-w-[1440px] mx-auto w-full">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-                        {/* Premium pill badge */}
-                        <motion.div
-                            variants={fadeIn} initial="hidden" animate="visible" custom={0}
-                            className="mb-6 inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-white/10 bg-white/[0.06] backdrop-blur-sm text-[10.5px] tracking-[0.22em] text-white/55 uppercase font-semibold"
-                        >
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#62AE88] animate-pulse"
-                                style={{ boxShadow: '0 0 8px rgba(98,174,136,0.9)' }} />
-                            #1 in Massachusetts · Video Marketing
-                        </motion.div>
+                            {/* Left Column: Messaging */}
+                            <div className="flex flex-col items-start text-left max-w-2xl lg:max-w-none">
+                                {/* Premium pill badge */}
+                                <motion.div
+                                    variants={fadeIn} initial="hidden" animate="visible" custom={0}
+                                    className="mb-8 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/5 bg-white/[0.02] backdrop-blur-md text-[10px] tracking-[0.2em] text-white/60 uppercase font-bold"
+                                >
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[#62AE88] animate-pulse"
+                                        style={{ boxShadow: '0 0 10px rgba(98,174,136,0.8)' }} />
+                                    #1 Video Marketing · Massachusetts
+                                </motion.div>
 
-                        {/* Main heading */}
-                        <motion.div
-                            variants={fadeUp} initial="hidden" animate="visible" custom={1}
-                            className="mb-3 select-none"
-                        >
-                            <span className="block font-display font-semibold text-[1.35rem] sm:text-[1.6rem] md:text-[2.2rem] lg:text-[2.8rem] tracking-tight text-white/90 leading-tight">
-                                The #1 Video Marketing Company
-                            </span>
-                            <span className="block font-display font-medium text-[1rem] sm:text-[1.2rem] md:text-[1.6rem] lg:text-[2rem] tracking-normal text-white/60 leading-tight mt-1">
-                                for Construction in
-                            </span>
-                            <span className="block mt-1 font-display font-bold text-[2.4rem] sm:text-[3rem] md:text-[5.5rem] lg:text-[7.5rem] leading-[0.9] tracking-tighter text-white drop-shadow-md">
-                                Massachusetts<span className="text-[#62AE88]">.</span>
-                            </span>
-                        </motion.div>
+                                {/* Main heading */}
+                                <motion.div
+                                    variants={fadeUp} initial="hidden" animate="visible" custom={1}
+                                    className="mb-8 select-none"
+                                >
+                                    <span className="block font-display font-medium text-[1.4rem] sm:text-[1.8rem] md:text-[2.2rem] lg:text-[2.6rem] tracking-tight text-white/80 leading-[1.1] mb-2">
+                                        The #1 Video Marketing
+                                    </span>
+                                    <span className="block font-display text-[1.1rem] sm:text-[1.3rem] md:text-[1.6rem] lg:text-[1.9rem] tracking-wide text-white/40 leading-[1.1] mb-4">
+                                        Company for Construction in
+                                    </span>
+                                    <h1 className="block font-display font-bold text-[3.2rem] sm:text-[4rem] md:text-[5.5rem] lg:text-[6rem] xl:text-[7rem] leading-[0.9] tracking-tighter text-white drop-shadow-2xl">
+                                        Massachusetts<span className="text-[#62AE88]">.</span>
+                                    </h1>
+                                </motion.div>
 
-                        {/* Green divider line */}
-                        <motion.div
-                            initial={{ scaleX: 0, opacity: 0 }}
-                            animate={{ scaleX: 1, opacity: 1 }}
-                            transition={{ duration: 0.7, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                            className="w-20 h-px mb-5 mx-auto"
-                            style={{
-                                background: 'linear-gradient(90deg, transparent, #62AE88, transparent)',
-                                boxShadow: '0 0 12px rgba(98,174,136,0.6)',
-                            }}
-                        />
+                                {/* Green divider line (Left Aligned) */}
+                                <motion.div
+                                    initial={{ scaleX: 0, opacity: 0 }}
+                                    animate={{ scaleX: 1, opacity: 1 }}
+                                    transition={{ duration: 0.7, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                                    className="w-16 h-[2px] mb-6"
+                                    style={{
+                                        background: 'linear-gradient(90deg, #62AE88, transparent)',
+                                        boxShadow: '0 0 12px rgba(98,174,136,0.3)',
+                                    }}
+                                />
 
-                        {/* Subtitle */}
-                        <motion.p
-                            variants={fadeUp} initial="hidden" animate="visible" custom={3}
-                            className="max-w-[560px] text-white/60 text-[14px] md:text-[16px] leading-relaxed font-normal"
-                        >
-                            We don't just make videos.{' '}
-                            <span className="text-white/90 font-semibold">We build your authority.</span>
-                        </motion.p>
+                                {/* Subtitle */}
+                                <motion.p
+                                    variants={fadeUp} initial="hidden" animate="visible" custom={3}
+                                    className="max-w-[480px] text-white/50 text-[15px] md:text-[17px] leading-relaxed font-medium"
+                                >
+                                    We don't just make videos.{' '}
+                                    <span className="text-white/90 font-bold border-b border-[#62AE88]/40 pb-0.5">We build your authority.</span>
+                                </motion.p>
+                            </div>
+
+                            {/* Right Column: High-Conversion Form */}
+                            <div className="hidden lg:flex justify-end items-center h-full">
+                                <HeroForm />
+                            </div>
+
+                            {/* Mobile Form Component (Shows only on Mobile/Tablet below the text) */}
+                            <div className="lg:hidden w-full max-w-lg mt-4">
+                                <HeroForm />
+                            </div>
+                        </div>
                     </div>
 
                     {/* ═══════════════ FEATURES (Bottom of screen) ═══════════════ */}

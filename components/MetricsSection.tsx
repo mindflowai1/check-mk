@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useInView, animate, useScroll, useTransform } from 'framer-motion';
+import { motion, useInView, animate } from 'framer-motion';
 
 interface CounterProps {
     value: number;
@@ -36,15 +36,13 @@ const Counter: React.FC<CounterProps> = ({ value, prefix = "", suffix = "" }) =>
 };
 
 const TOTAL_FRAMES = 21;
-const SCROLL_SENSITIVITY = 50; // px of wheel delta per frame
+const FRAME_DURATION = 80; // ms per frame — smooth auto-play speed
 
 const ScrollSequence: React.FC = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [currentFrame, setCurrentFrame] = useState(1);
-    const isLockedRef = useRef(false);
-    const doneRef = useRef(false);
-    const progressRef = useRef(0);
-    const savedScrollYRef = useRef(0);
+    const hasPlayedRef = useRef(false);
+    const rafRef = useRef<number | null>(null);
 
     // Preload images once
     useEffect(() => {
@@ -58,89 +56,36 @@ const ScrollSequence: React.FC = () => {
         const section = sectionRef.current;
         if (!section) return;
 
-        const lockScroll = () => {
-            if (isLockedRef.current || doneRef.current) return;
-            isLockedRef.current = true;
-            savedScrollYRef.current = window.scrollY;
-            document.body.style.position = 'fixed';
-            document.body.style.top = `-${savedScrollYRef.current}px`;
-            document.body.style.left = '0';
-            document.body.style.right = '0';
-            document.body.style.overflow = 'hidden';
-        };
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && !hasPlayedRef.current) {
+                    hasPlayedRef.current = true;
+                    // Auto-play the frame sequence
+                    let frame = 1;
+                    let lastTime = performance.now();
 
-        const unlockScroll = () => {
-            if (!isLockedRef.current) return;
-            isLockedRef.current = false;
-            doneRef.current = true;
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.left = '';
-            document.body.style.right = '';
-            document.body.style.overflow = '';
-            window.scrollTo({ top: savedScrollYRef.current, behavior: 'instant' as ScrollBehavior });
-        };
+                    const playFrames = (now: number) => {
+                        const elapsed = now - lastTime;
+                        if (elapsed >= FRAME_DURATION) {
+                            frame++;
+                            lastTime = now;
+                            setCurrentFrame(Math.min(frame, TOTAL_FRAMES));
+                        }
+                        if (frame < TOTAL_FRAMES) {
+                            rafRef.current = requestAnimationFrame(playFrames);
+                        }
+                    };
+                    rafRef.current = requestAnimationFrame(playFrames);
+                }
+            },
+            { threshold: 0.3 }
+        );
 
-        // Precise scroll listener: lock exactly when section center hits viewport center
-        const handleScrollDetect = () => {
-            if (isLockedRef.current || doneRef.current) return;
-            const rect = section.getBoundingClientRect();
-            const sectionCenterY = rect.top + rect.height / 2;
-            const viewportCenterY = window.innerHeight / 2;
-
-            if (sectionCenterY <= viewportCenterY) {
-                progressRef.current = 0;
-                setCurrentFrame(1);
-                lockScroll();
-            }
-        };
-
-        const handleWheel = (e: WheelEvent) => {
-            if (!isLockedRef.current) return;
-            e.preventDefault();
-            e.stopPropagation();
-
-            progressRef.current += e.deltaY / SCROLL_SENSITIVITY;
-            progressRef.current = Math.max(0, Math.min(TOTAL_FRAMES - 1, progressRef.current));
-
-            const frame = Math.round(progressRef.current) + 1;
-            setCurrentFrame(frame);
-
-            if (progressRef.current >= TOTAL_FRAMES - 1) {
-                unlockScroll();
-            }
-        };
-
-        let touchStartY = 0;
-        const handleTouchStart = (e: TouchEvent) => {
-            touchStartY = e.touches[0].clientY;
-        };
-        const handleTouchMove = (e: TouchEvent) => {
-            if (!isLockedRef.current) return;
-            e.preventDefault();
-            const delta = touchStartY - e.touches[0].clientY;
-            touchStartY = e.touches[0].clientY;
-
-            progressRef.current += delta / SCROLL_SENSITIVITY;
-            progressRef.current = Math.max(0, Math.min(TOTAL_FRAMES - 1, progressRef.current));
-            setCurrentFrame(Math.round(progressRef.current) + 1);
-
-            if (progressRef.current >= TOTAL_FRAMES - 1) {
-                unlockScroll();
-            }
-        };
-
-        window.addEventListener('scroll', handleScrollDetect, { passive: true });
-        window.addEventListener('wheel', handleWheel, { passive: false });
-        window.addEventListener('touchstart', handleTouchStart, { passive: true });
-        window.addEventListener('touchmove', handleTouchMove, { passive: false });
+        observer.observe(section);
 
         return () => {
-            window.removeEventListener('scroll', handleScrollDetect);
-            window.removeEventListener('wheel', handleWheel);
-            window.removeEventListener('touchstart', handleTouchStart);
-            window.removeEventListener('touchmove', handleTouchMove);
-            unlockScroll();
+            observer.disconnect();
+            if (rafRef.current) cancelAnimationFrame(rafRef.current);
         };
     }, []);
 
