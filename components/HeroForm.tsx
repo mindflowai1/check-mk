@@ -83,7 +83,7 @@ const HeroForm: React.FC = () => {
       transition={{ duration: 0.8, delay: 0.3 }}
       className="relative w-full max-w-md h-full flex items-center justify-center"
     >
-      <div className="relative bg-white/[0.04] backdrop-blur-2xl rounded-[24px] border border-white/10 p-8 md:p-10 shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] w-full">
+      <div className="relative bg-white/[0.04] backdrop-blur-2xl rounded-[24px] border border-white/10 p-6 md:p-10 shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] w-full">
         
         {/* Glow effect slightly visible behind the form */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-brand/10 rounded-full blur-[80px] -z-10 pointer-events-none" />
@@ -101,7 +101,7 @@ const HeroForm: React.FC = () => {
               <div className="h-px w-8 bg-white/10" />
             </div>
 
-            <h3 className="font-display text-[2.5rem] md:text-[3rem] font-bold text-white leading-tight tracking-tight">
+            <h3 className="font-display text-[2rem] md:text-[3rem] font-bold text-white leading-tight tracking-tight">
               {language === 'pt' ? 'Vamos fazer ' : 'Let\'s talk '}
               <span className="text-white/30">{language === 'pt' ? 'negócios.' : 'business.'}</span>
             </h3>

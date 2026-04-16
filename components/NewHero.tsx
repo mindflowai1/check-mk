@@ -104,10 +104,10 @@ const NewHero: React.FC = () => {
 
                 {/* Overlays */}
                 <div className="absolute inset-0 bg-black/20 z-[1]" />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-transparent z-[2]" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/20 to-black z-[2]" />
                 <div
                     className="absolute inset-0 z-[4] pointer-events-none"
-                    style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 40%)' }}
+                    style={{ background: 'linear-gradient(to top, #000 0%, transparent 50%)' }}
                 />
                 <div
                     className="absolute inset-0 z-[5] pointer-events-none opacity-[0.04]"
@@ -244,7 +244,7 @@ const NewHero: React.FC = () => {
             <div className="relative z-10 w-full flex flex-col -mt-[100vh]">
 
                 {/* 1st Viewport (Navbar + Hero Text + Desktop Features OR Mobile Feature 1) */}
-                <div className="w-full h-screen flex flex-col justify-between">
+                <div className="w-full min-h-screen lg:h-screen flex flex-col justify-between">
 
                     {/* Placeholder to prevent layout shift */}
                     <div className="h-[88px] shrink-0 pointer-events-none" />
@@ -309,7 +309,7 @@ const NewHero: React.FC = () => {
                             </div>
 
                             {/* Mobile Form Component (Shows only on Mobile/Tablet below the text) */}
-                            <div className="lg:hidden w-full max-w-lg mt-4">
+                            <div className="lg:hidden w-full max-w-lg mt-4 mb-12">
                                 <HeroForm />
                             </div>
                         </div>
@@ -320,7 +320,7 @@ const NewHero: React.FC = () => {
 
                         {/* ── DESKTOP: All 3 Features row ── */}
                         <div
-                            className="hidden md:block relative z-20 w-full py-10 border-y border-white/[0.1] bg-[#09090b]"
+                            className="hidden md:block relative z-20 w-full py-10 border-y border-white/[0.05] bg-[#09090b]"
                         >
                             <div className="max-w-[1200px] mx-auto w-full px-6 flex flex-row items-stretch">
                                 {features.map((feature, i) => (
@@ -360,7 +360,7 @@ const NewHero: React.FC = () => {
                         {/* ── MOBILE: Feature 1 only ── */}
                         <div
                             className="md:hidden relative z-20 w-full pt-4 pb-3 border-t border-white/[0.07] overflow-hidden"
-                            style={{ background: 'rgba(0,0,0,0.52)', backdropFilter: 'blur(14px)' }}
+                            style={{ background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(16px)' }}
                         >
                             <div className="px-5 relative z-10 block">
                                 <motion.div
@@ -442,7 +442,7 @@ const NewHero: React.FC = () => {
                     ))}
 
                     {/* Tiny dark gradient block to fade nicely into the next bright section */}
-                    <div className="relative z-20 w-full h-[6vh] bg-gradient-to-b from-black/80 to-transparent" />
+                    <div className="relative z-20 w-full h-[8vh] bg-gradient-to-b from-black/80 to-[#09090b]" />
                 </div>
 
             </div>
