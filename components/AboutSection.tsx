@@ -54,20 +54,21 @@ const AboutSection: React.FC = () => {
                 </motion.p>
 
                 {/* CTA Button */}
-                <motion.button
+                <motion.a
+                    href="#portfolio"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.6, delay: 0.3 }}
                     whileHover={{ scale: 1.03, boxShadow: '0 6px 30px rgba(67,117,92,0.40)' }}
                     whileTap={{ scale: 0.97 }}
-                    className="flex items-center gap-3 bg-[#43755C] text-white pl-7 pr-1.5 py-1.5 rounded-full text-[13.5px] font-bold transition-all duration-300 group ring-1 ring-[#62AE88]/30 hover:ring-[#62AE88] mx-auto"
+                    className="flex items-center gap-3 bg-[#43755C] text-white pl-7 pr-1.5 py-1.5 rounded-full text-[13.5px] font-bold transition-all duration-300 group ring-1 ring-[#62AE88]/30 hover:ring-[#62AE88] mx-auto w-fit"
                 >
                     See Our Impact
                     <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white transition-colors duration-300 shadow-sm">
                         <ArrowRight className="w-3.5 h-3.5 text-white group-hover:text-[#43755C] transition-colors" />
                     </div>
-                </motion.button>
+                </motion.a>
             </div>
         </section>
     );
