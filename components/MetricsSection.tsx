@@ -108,11 +108,10 @@ const metrics = [
         description: "Delivered strictly for elite developers and real estate agencies."
     },
     {
-        value: 850,
-        prefix: "$",
-        suffix: "M+",
-        label: "In Real Estate Sold",
-        description: "Directly accelerated by our high-end visual campaigns."
+        value: 100,
+        suffix: "+",
+        label: "Construction Companies",
+        description: "Powered by high-end visual content"
     },
     { isAnimation: true },
     {
