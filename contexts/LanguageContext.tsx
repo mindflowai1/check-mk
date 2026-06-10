@@ -132,11 +132,11 @@ const translations = {
       },
       info: {
         emailLabel: 'Email',
-        emailValue: 'contato@checkmkt.com',
-        whatsappLabel: 'WhatsApp',
-        whatsappValue: '+1 (555) 123-4567',
-        servingLabel: 'Atendimento',
-        servingValue: 'USA & Brasil'
+        emailValue: 'info@checkmktus.com',
+        whatsappLabel: 'Telefone',
+        whatsappValue: '774 446 6676',
+        servingLabel: 'Endereço',
+        servingValue: '67 sea street Hyannis - MA  02601'
       },
       goals: [
         'Melhorar posicionamento de marca',
@@ -274,11 +274,11 @@ const translations = {
       },
       info: {
         emailLabel: 'Email',
-        emailValue: 'contact@checkmkt.com',
-        whatsappLabel: 'WhatsApp',
-        whatsappValue: '+1 (555) 123-4567',
-        servingLabel: 'Serving',
-        servingValue: 'USA & Brazil'
+        emailValue: 'info@checkmktus.com',
+        whatsappLabel: 'Phone',
+        whatsappValue: '774 446 6676',
+        servingLabel: 'Address',
+        servingValue: '67 sea street Hyannis - MA  02601'
       },
       goals: [
         'Improve Brand Positioning',
