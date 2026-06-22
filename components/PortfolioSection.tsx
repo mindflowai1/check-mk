@@ -1,62 +1,69 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, ChevronDown } from 'lucide-react';
+import { Play, X, ChevronDown, Film } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
+import { portfolioVideos, VideoItem } from './portfolioData';
 
-const categories = ['All', 'High-End Homes', 'Commercial', 'Drone Footage'];
-
-const portfolioItems = [
-    {
-        id: 1,
-        title: 'Modern Luxury Estate',
-        category: 'High-End Homes',
-        description: 'Cinematic tour of a $5M property, highlighting architectural details and lighting.',
-        image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=85',
-    },
-    {
-        id: 2,
-        title: 'Downtown Skyscraper',
-        category: 'Commercial',
-        description: 'Dynamic FPV drone shots weaving through an active commercial construction site.',
-        image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=85',
-    },
-    {
-        id: 3,
-        title: 'Coastal Villa Aerials',
-        category: 'Drone Footage',
-        description: 'Breathtaking sunset aerial tracking shots showcasing property boundaries and views.',
-        image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=85',
-    },
-    {
-        id: 4,
-        title: 'Boutique Hotel Renovation',
-        category: 'Commercial',
-        description: 'Fast-paced transformation reel capturing the essence of the new interior design.',
-        image: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=85',
-    },
-    {
-        id: 5,
-        title: 'Industrial Complex',
-        category: 'Commercial',
-        description: 'Detail-oriented showcase of modern industrial facilities mixing ground and drone work.',
-        image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=800&q=85',
-    },
+const categories: ('all' | 'construction' | 'landscaping' | 'real-estate' | 'ads')[] = [
+    'all',
+    'construction',
+    'landscaping',
+    'real-estate',
+    'ads'
 ];
 
 const PortfolioSection: React.FC = () => {
-    const [activeCategory, setActiveCategory] = useState('All');
+    const { t } = useLanguage();
+    const [activeCategory, setActiveCategory] = useState<'all' | 'construction' | 'landscaping' | 'real-estate' | 'ads'>('all');
     const [showAll, setShowAll] = useState(false);
+    const [activeVideo, setActiveVideo] = useState<VideoItem | null>(null);
+    const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
 
-    const filteredItems = portfolioItems.filter(
-        item => activeCategory === 'All' || item.category === activeCategory
+    const fallbackThumbnails = {
+        construction: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80',
+        landscaping: 'https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=800&q=80',
+        'real-estate': 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
+        ads: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80'
+    };
+
+    // Escape key listener to close video modal
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                setActiveVideo(null);
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+
+    // Filter items based on active category
+    const filteredItems = portfolioVideos.filter(
+        item => activeCategory === 'all' || item.category === activeCategory
     );
 
-    const visibleItems = showAll ? filteredItems : filteredItems.slice(0, 3);
+    // Limit shown items to 6 initially, or show all if showAll is true
+    const visibleItems = showAll ? filteredItems : filteredItems.slice(0, 6);
+
+    // Google Drive direct embed converter
+    const getEmbedUrl = (url: string) => {
+        const driveRegex = /(?:drive\.google\.com\/file\/d\/|drive\.google\.com\/open\?id=)([a-zA-Z0-9_-]+)/;
+        const match = url.match(driveRegex);
+        if (match && match[1]) {
+            return `https://drive.google.com/file/d/${match[1]}/preview`;
+        }
+        return url;
+    };
 
     return (
-        <section id="portfolio" className="relative w-full py-24 lg:py-32 bg-[#fcfdfd] text-slate-900">
-            <div className="max-w-[1100px] mx-auto px-6 lg:px-8">
+        <section id="portfolio" className="relative w-full py-24 lg:py-32 bg-[#fcfdfd] text-slate-900 overflow-hidden border-t border-slate-100">
+            {/* Ambient gradients */}
+            <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#62AE88]/5 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-[#43755C]/5 rounded-full blur-[120px] pointer-events-none" />
 
-                {/* Header — eyebrow + extending rule */}
+            <div className="max-w-[1200px] mx-auto px-6 lg:px-8 relative z-10">
+
+                {/* Section Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -65,7 +72,7 @@ const PortfolioSection: React.FC = () => {
                     className="flex items-center gap-5 mb-6"
                 >
                     <span className="text-slate-400 text-[10.5px] font-bold tracking-[0.2em] uppercase shrink-0">
-                        Gallery
+                        {t.portfolio.title || 'Portfolio'}
                     </span>
                     <div className="flex-1 h-px bg-slate-200" />
                 </motion.div>
@@ -75,103 +82,118 @@ const PortfolioSection: React.FC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.6, delay: 0.1 }}
-                    className="font-display font-medium text-[2.8rem] md:text-[4rem] leading-[1.04] tracking-[-0.025em] text-slate-900 mb-12 md:mb-16"
+                    className="font-display font-medium text-[2.8rem] md:text-[4rem] leading-[1.04] tracking-[-0.025em] text-slate-900 mb-4"
                 >
-                    Our Realizations
+                    {t.portfolio.title || 'Our Realizations'}
                 </motion.h2>
+                
+                <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.6, delay: 0.15 }}
+                    className="text-slate-500 text-[15px] font-medium max-w-xl mb-12 md:mb-16 leading-relaxed"
+                >
+                    {t.portfolio.subtitle || 'Explore our cinematic video catalog divided by project type.'}
+                </motion.p>
 
-                {/* Filters */}
+                {/* Filter Tabs */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="flex items-center gap-2 overflow-x-auto pb-4 mb-14 scrollbar-hide"
+                    className="flex items-center gap-2 overflow-x-auto pb-4 mb-12 scrollbar-hide"
                 >
-                    {categories.map((category) => (
-                        <button
-                            key={category}
-                            onClick={() => {
-                                setActiveCategory(category);
-                                setShowAll(false);
-                            }}
-                            className={`relative text-[11px] font-bold tracking-wider uppercase whitespace-nowrap transition-all duration-300 px-5 py-2.5 rounded-full ${activeCategory === category
-                                ? 'text-white bg-[#43755C] shadow-md ring-1 ring-[#43755C]/20'
-                                : 'text-slate-500 bg-white hover:text-slate-900 hover:bg-slate-50 border border-slate-200 shadow-sm'
-                                }`}
-                        >
-                            {category}
-                        </button>
-                    ))}
+                    {categories.map((cat) => {
+                        const label = t.portfolio.categories?.[cat] || cat;
+                        const count = cat === 'all' ? portfolioVideos.length : portfolioVideos.filter(item => item.category === cat).length;
+                        
+                        return (
+                            <button
+                                key={cat}
+                                onClick={() => {
+                                    setActiveCategory(cat);
+                                    setShowAll(false);
+                                }}
+                                className={`relative text-[11px] font-bold tracking-wider uppercase whitespace-nowrap transition-all duration-300 px-5 py-2.5 rounded-full flex items-center gap-2 ${activeCategory === cat
+                                    ? 'text-white bg-[#43755C] shadow-md ring-1 ring-[#43755C]/20'
+                                    : 'text-slate-500 bg-white hover:text-slate-900 hover:bg-slate-50 border border-slate-200 shadow-sm'
+                                    }`}
+                            >
+                                <span>{label}</span>
+                                <span className={`text-[9px] px-1.5 py-0.5 rounded-full ${activeCategory === cat ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-400'}`}>
+                                    {count}
+                                </span>
+                            </button>
+                        );
+                    })}
                 </motion.div>
 
                 {/* Portfolio Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-1 md:gap-x-10 md:gap-y-16 pb-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 pb-10">
                     <AnimatePresence mode="popLayout">
                         {visibleItems.map((item, index) => (
                             <motion.div
                                 key={item.id}
                                 layout
-                                initial={{ opacity: 0, y: 40 }}
+                                initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-50px" }}
                                 exit={{ opacity: 0, y: -10, scale: 0.95 }}
                                 transition={{
-                                    duration: 0.5,
+                                    duration: 0.45,
                                     ease: [0.25, 0.46, 0.45, 0.94],
-                                    delay: index * 0.1,
+                                    delay: Math.min(index * 0.05, 0.3),
                                 }}
-                                className="group cursor-pointer flex flex-col w-full"
+                                className="group cursor-pointer flex flex-col w-full bg-white rounded-xl overflow-hidden border border-slate-150 shadow-[0_2px_15px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_35px_rgba(0,0,0,0.06)] hover:border-[#62AE88]/30 transition-all duration-300"
+                                onClick={() => setActiveVideo(item)}
                             >
-                                {/* Image Container (Square on Mobile like IG, 3/2 on Desktop) */}
-                                <div className="relative w-full aspect-square md:aspect-[3/2] bg-slate-100 overflow-hidden md:mb-6 rounded-none md:rounded-md shadow-sm">
-
-                                    {/* Index number — hidden on mobile for cleaner IG look */}
-                                    <span className="hidden md:block absolute top-3.5 left-4 z-10 text-[11px] font-bold text-white/70 tracking-[0.12em] tabular-nums select-none drop-shadow-md">
-                                        {String(index + 1).padStart(2, '0')}
-                                    </span>
-
-                                    {/* Hover Arrow for Desktop */}
-                                    <div className="hidden absolute top-3.5 right-3.5 z-10 w-9 h-9 rounded-full bg-white backdrop-blur-md shadow-lg border border-slate-100 md:flex items-center justify-center opacity-0 group-hover:opacity-100 -translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out">
-                                        <ArrowUpRight className="w-4 h-4 text-slate-800" />
-                                    </div>
-
+                                {/* Thumbnail Container */}
+                                <div className="relative w-full aspect-video bg-slate-900 overflow-hidden">
                                     <img
-                                        src={item.image}
+                                        src={imageErrors[item.id] ? fallbackThumbnails[item.category] : item.thumbnail}
                                         alt={item.title}
-                                        className="w-full h-full object-cover transition-all duration-700 ease-out md:group-hover:scale-[1.05]"
+                                        loading="lazy"
+                                        referrerPolicy="no-referrer"
+                                        onError={() => setImageErrors(prev => ({ ...prev, [item.id]: true }))}
+                                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                                     />
-
-                                    {/* Mobile Only: Inner Overlay Text mimicking Reels/TikTok covers */}
-                                    <div className="absolute xl:hidden inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex md:hidden flex-col justify-end p-3 pointer-events-none">
-                                        <span className="text-[#62AE88] text-[8.5px] font-bold tracking-[0.15em] uppercase mb-1 drop-shadow-md">
-                                            {item.category}
-                                        </span>
-                                        <h3 className="font-display text-[13.5px] font-bold text-white leading-tight drop-shadow-md">
-                                            {item.title}
-                                        </h3>
+                                    
+                                    {/* Vignette Overlay */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
+                                    
+                                    {/* Play Button Glow Overlay */}
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <motion.div 
+                                            whileHover={{ scale: 1.15 }}
+                                            className="w-14 h-14 rounded-full bg-[#62AE88] text-white flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:shadow-[0_0_20px_rgba(98,174,136,0.6)] group-hover:bg-[#4a8566]"
+                                        >
+                                            <Play className="w-5 h-5 fill-white ml-0.5 text-white" />
+                                        </motion.div>
                                     </div>
 
-                                    {/* Persistent bottom vignette on Desktop to keep contrast if needed */}
-                                    <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
+                                    {/* Aspect Ratio Badge (Vertical vs Horizontal indicator) */}
+                                    {item.isVertical && (
+                                        <div className="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-sm border border-white/10 flex items-center gap-1.5 text-[9px] font-bold text-white tracking-wider uppercase">
+                                            <Film className="w-3 h-3 text-[#62AE88]" />
+                                            <span>Reel / Ad</span>
+                                        </div>
+                                    )}
                                 </div>
 
-                                {/* Content — Desktop Only */}
-                                <div className="hidden md:flex flex-col flex-grow px-1.5">
-
-                                    {/* Category row with expanding line */}
-                                    <div className="flex items-center gap-3 mb-3.5">
-                                        <span className="text-[#43755C] text-[10px] font-bold tracking-[0.14em] uppercase shrink-0">
-                                            {item.category}
-                                        </span>
-                                        <div className="flex-1 h-px bg-slate-200" />
-                                    </div>
-
-                                    <h3 className="font-display text-[17px] font-bold text-slate-900 mb-2.5 leading-snug tracking-[-0.015em] group-hover:text-[#43755C] transition-colors duration-300">
+                                {/* Content Details */}
+                                <div className="flex flex-col p-5 flex-grow">
+                                    <span className="text-[#43755C] text-[9.5px] font-bold tracking-[0.15em] uppercase mb-2">
+                                        {t.portfolio.categories?.[item.category] || item.category}
+                                    </span>
+                                    
+                                    <h3 className="font-display text-[16px] font-bold text-slate-800 mb-1 leading-snug group-hover:text-[#43755C] transition-colors duration-300">
                                         {item.title}
                                     </h3>
-                                    <p className="text-slate-500 text-[13.5px] leading-relaxed line-clamp-2 pr-4">
-                                        {item.description}
+                                    
+                                    <p className="text-slate-450 text-[12.5px] leading-relaxed line-clamp-2">
+                                        {t.portfolio.subtitle ? `${t.portfolio.categories?.[item.category]} project` : `Cinematic video for ${item.title.toLowerCase()}`}
                                     </p>
                                 </div>
                             </motion.div>
@@ -179,20 +201,20 @@ const PortfolioSection: React.FC = () => {
                     </AnimatePresence>
                 </div>
 
-                {/* View More */}
-                {filteredItems.length > 3 && (
+                {/* View More Buttons */}
+                {filteredItems.length > 6 && (
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                        className="w-full flex justify-center mt-2 pt-12 border-t border-slate-200"
+                        transition={{ duration: 0.5 }}
+                        className="w-full flex justify-center mt-8 pt-8 border-t border-slate-100"
                     >
                         <button
                             onClick={() => setShowAll(!showAll)}
                             className="group flex items-center gap-3 text-slate-500 hover:text-[#43755C] transition-all duration-300 text-[11px] font-bold uppercase tracking-[0.16em]"
                         >
-                            {showAll ? 'View Less' : 'View More Works'}
+                            {showAll ? (t.portfolio.viewLess || 'View Less') : (t.portfolio.viewMore || 'View More Works')}
                             <div
                                 className="w-9 h-9 rounded-full border border-slate-200 bg-white shadow-sm flex items-center justify-center group-hover:border-[#43755C]/30 group-hover:bg-slate-50 transition-all duration-300"
                                 style={{ transform: showAll ? 'rotate(180deg)' : 'rotate(0deg)' }}
@@ -204,6 +226,62 @@ const PortfolioSection: React.FC = () => {
                 )}
 
             </div>
+
+            {/* Cinematic Lightbox Modal */}
+            <AnimatePresence>
+                {activeVideo && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 md:p-6"
+                        onClick={() => setActiveVideo(null)}
+                    >
+                        {/* Close button outside the video */}
+                        <button
+                            className="absolute top-4 right-4 md:top-6 md:right-6 text-white/70 hover:text-white bg-white/5 hover:bg-white/10 p-3 rounded-full border border-white/10 transition-colors z-50 shadow-lg"
+                            onClick={() => setActiveVideo(null)}
+                        >
+                            <X className="w-6 h-6" />
+                        </button>
+
+                        {/* Modal Container */}
+                        <motion.div
+                            initial={{ scale: 0.9, y: 20 }}
+                            animate={{ scale: 1, y: 0 }}
+                            exit={{ scale: 0.9, y: 20 }}
+                            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                            className={`relative bg-black rounded-2xl overflow-hidden shadow-2xl border border-white/5 w-full ${
+                                activeVideo.isVertical
+                                    ? 'max-w-[420px] aspect-[9/16]'
+                                    : 'max-w-[1000px] aspect-video'
+                            }`}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {/* Video Playback */}
+                            <iframe
+                                src={getEmbedUrl(activeVideo.videoUrl)}
+                                title={activeVideo.title}
+                                className="w-full h-full border-0 rounded-2xl"
+                                allow="autoplay; fullscreen; picture-in-picture"
+                                allowFullScreen
+                            />
+                            
+                            {/* Metadata Overlay (Small bar at bottom of widescreen video) */}
+                            {!activeVideo.isVertical && (
+                                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent pointer-events-none select-none flex flex-col gap-0.5">
+                                    <span className="text-[#62AE88] text-[9px] font-bold uppercase tracking-wider">
+                                        {t.portfolio.categories?.[activeVideo.category] || activeVideo.category}
+                                    </span>
+                                    <h4 className="text-white font-bold text-[14px]">
+                                        {activeVideo.title}
+                                    </h4>
+                                </div>
+                            )}
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </section >
     );
 };

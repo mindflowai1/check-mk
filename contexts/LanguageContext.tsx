@@ -83,6 +83,15 @@ const translations = {
       title: 'Trabalhos Recentes',
       subtitle: 'O padrão visual que seus concorrentes gostariam de ter.',
       link: 'Explorar todos os projetos →',
+      viewMore: 'Ver mais trabalhos',
+      viewLess: 'Ver menos',
+      categories: {
+        all: 'Todos',
+        construction: 'Construção',
+        landscaping: 'Paisagismo',
+        'real-estate': 'Real Estate',
+        ads: 'Anúncios'
+      },
       items: [
         { category: "Real Estate", title: "Imóveis & Tours de Alto Padrão" },
         { category: "Construção", title: "Construção & Obras Cinematográficas" },
@@ -225,6 +234,15 @@ const translations = {
       title: 'Recent Work',
       subtitle: 'The visual standard your competitors wish they had.',
       link: 'Explore all projects →',
+      viewMore: 'View More Works',
+      viewLess: 'View Less',
+      categories: {
+        all: 'All',
+        construction: 'Construction',
+        landscaping: 'Landscaping',
+        'real-estate': 'Real Estate',
+        ads: 'Ads & Commercials'
+      },
       items: [
         { category: "Real Estate", title: "Real Estate Showcase" },
         { category: "Construction", title: "Cinematic Roofing & Construction" },
