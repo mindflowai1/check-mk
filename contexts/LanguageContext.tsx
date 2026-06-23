@@ -85,6 +85,7 @@ const translations = {
       link: 'Explorar todos os projetos →',
       viewMore: 'Ver mais trabalhos',
       viewLess: 'Ver menos',
+      close: 'Fechar',
       categories: {
         all: 'Todos',
         construction: 'Construção',
@@ -236,6 +237,7 @@ const translations = {
       link: 'Explore all projects →',
       viewMore: 'View More Works',
       viewLess: 'View Less',
+      close: 'Close',
       categories: {
         all: 'All',
         construction: 'Construction',

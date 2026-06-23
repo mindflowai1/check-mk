@@ -234,51 +234,55 @@ const PortfolioSection: React.FC = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 md:p-6"
+                        className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-black/95 backdrop-blur-md p-4 md:p-6"
                         onClick={() => setActiveVideo(null)}
                     >
-                        {/* Close button outside the video */}
+                        {/* Close button: bottom center on mobile, top right on desktop */}
                         <button
-                            className="absolute top-4 right-4 md:top-6 md:right-6 text-white/70 hover:text-white bg-white/5 hover:bg-white/10 p-3 rounded-full border border-white/10 transition-colors z-50 shadow-lg"
+                            className="fixed bottom-6 left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0 md:top-6 md:right-6 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 px-6 py-2.5 md:p-3 rounded-full border border-white/10 transition-colors z-50 shadow-lg flex items-center gap-2 text-xs font-bold uppercase tracking-wider"
                             onClick={() => setActiveVideo(null)}
                         >
-                            <X className="w-6 h-6" />
+                            <X className="w-4 h-4 md:w-5 md:h-5" />
+                            <span className="md:hidden">{t.portfolio.close || 'Close'}</span>
                         </button>
 
-                        {/* Modal Container */}
-                        <motion.div
-                            initial={{ scale: 0.9, y: 20 }}
-                            animate={{ scale: 1, y: 0 }}
-                            exit={{ scale: 0.9, y: 20 }}
-                            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                            className={`relative bg-black rounded-2xl overflow-hidden shadow-2xl border border-white/5 w-full ${
-                                activeVideo.isVertical
-                                    ? 'max-w-[420px] aspect-[9/16]'
-                                    : 'max-w-[1000px] aspect-video'
-                            }`}
+                        {/* Modal & Metadata Container */}
+                        <div 
+                            className="flex flex-col items-center justify-center w-full max-h-[80vh] md:max-h-[85vh] select-none"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            {/* Video Playback */}
-                            <iframe
-                                src={getEmbedUrl(activeVideo.videoUrl)}
-                                title={activeVideo.title}
-                                className="w-full h-full border-0 rounded-2xl"
-                                allow="autoplay; fullscreen; picture-in-picture"
-                                allowFullScreen
-                            />
+                            {/* Video Container */}
+                            <motion.div
+                                initial={{ scale: 0.9, y: 20 }}
+                                animate={{ scale: 1, y: 0 }}
+                                exit={{ scale: 0.9, y: 20 }}
+                                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                                className={`relative bg-black rounded-xl overflow-hidden shadow-2xl border border-white/5 w-full ${
+                                    activeVideo.isVertical
+                                        ? 'max-w-[360px] aspect-[9/16]'
+                                        : 'max-w-[1000px] aspect-video'
+                                }`}
+                            >
+                                {/* Video Playback */}
+                                <iframe
+                                    src={getEmbedUrl(activeVideo.videoUrl)}
+                                    title={activeVideo.title}
+                                    className="w-full h-full border-0 rounded-xl"
+                                    allow="autoplay; fullscreen; picture-in-picture"
+                                    allowFullScreen
+                                />
+                            </motion.div>
                             
-                            {/* Metadata Overlay (Small bar at bottom of widescreen video) */}
-                            {!activeVideo.isVertical && (
-                                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent pointer-events-none select-none flex flex-col gap-0.5">
-                                    <span className="text-[#62AE88] text-[9px] font-bold uppercase tracking-wider">
-                                        {t.portfolio.categories?.[activeVideo.category] || activeVideo.category}
-                                    </span>
-                                    <h4 className="text-white font-bold text-[14px]">
-                                        {activeVideo.title}
-                                    </h4>
-                                </div>
-                            )}
-                        </motion.div>
+                            {/* Metadata below the video container */}
+                            <div className="mt-4 text-center px-4 max-w-xl pointer-events-none">
+                                <span className="text-[#62AE88] text-[10px] font-bold uppercase tracking-[0.15em] block mb-1">
+                                    {t.portfolio.categories?.[activeVideo.category] || activeVideo.category}
+                                </span>
+                                <h4 className="text-white font-bold text-[16px] md:text-lg leading-snug">
+                                    {activeVideo.title}
+                                </h4>
+                            </div>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
