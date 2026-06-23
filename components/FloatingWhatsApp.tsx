@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 const FloatingWhatsApp: React.FC = () => {
   return (
     <motion.a
+      data-floating-whatsapp
       href="https://wa.me/"
       target="_blank"
       rel="noopener noreferrer"

@@ -26,6 +26,32 @@ const PortfolioSection: React.FC = () => {
         ads: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80'
     };
 
+    // Lock body scroll + hide navbar/WhatsApp when modal is active
+    useEffect(() => {
+        if (activeVideo) {
+            document.body.style.overflow = 'hidden';
+            // Hide navbar and WhatsApp button so they don't overlap the player
+            const navbar = document.querySelector('[data-navbar]') as HTMLElement | null;
+            const whatsapp = document.querySelector('[data-floating-whatsapp]') as HTMLElement | null;
+            if (navbar) navbar.style.display = 'none';
+            if (whatsapp) whatsapp.style.display = 'none';
+        } else {
+            document.body.style.overflow = '';
+            const navbar = document.querySelector('[data-navbar]') as HTMLElement | null;
+            const whatsapp = document.querySelector('[data-floating-whatsapp]') as HTMLElement | null;
+            if (navbar) navbar.style.display = '';
+            if (whatsapp) whatsapp.style.display = '';
+        }
+
+        return () => {
+            document.body.style.overflow = '';
+            const navbar = document.querySelector('[data-navbar]') as HTMLElement | null;
+            const whatsapp = document.querySelector('[data-floating-whatsapp]') as HTMLElement | null;
+            if (navbar) navbar.style.display = '';
+            if (whatsapp) whatsapp.style.display = '';
+        };
+    }, [activeVideo]);
+
     // Escape key listener to close video modal
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -227,30 +253,66 @@ const PortfolioSection: React.FC = () => {
 
             </div>
 
-            {/* Cinematic Lightbox Modal */}
+            {/* ═══════ Cinematic Lightbox Modal ═══════ */}
+            {/* Mobile: fullscreen takeover | Desktop: centered lightbox */}
             <AnimatePresence>
                 {activeVideo && (
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-black/95 backdrop-blur-md p-4 md:p-6"
+                        transition={{ duration: 0.2 }}
+                        className="fixed inset-0 z-[999999] bg-black flex flex-col md:items-center md:justify-center md:bg-black/95 md:backdrop-blur-md"
                         onClick={() => setActiveVideo(null)}
                     >
-                        {/* Close button: bottom center on mobile, top right on desktop */}
-                        <button
-                            className="fixed bottom-6 left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:translate-x-0 md:top-6 md:right-6 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 px-6 py-2.5 md:p-3 rounded-full border border-white/10 transition-colors z-50 shadow-lg flex items-center gap-2 text-xs font-bold uppercase tracking-wider"
-                            onClick={() => setActiveVideo(null)}
-                        >
-                            <X className="w-4 h-4 md:w-5 md:h-5" />
-                            <span className="md:hidden">{t.portfolio.close || 'Close'}</span>
-                        </button>
-
-                        {/* Modal & Metadata Container */}
-                        <div 
-                            className="flex flex-col items-center justify-center w-full max-h-[80vh] md:max-h-[85vh] select-none"
+                        {/* ── MOBILE: Top header bar with title + close ── */}
+                        <div
+                            className="flex md:hidden items-center justify-between px-4 py-3 bg-black/95 border-b border-white/10 shrink-0"
                             onClick={(e) => e.stopPropagation()}
                         >
+                            <div className="flex flex-col min-w-0 mr-3">
+                                <span className="text-[#62AE88] text-[9px] font-bold uppercase tracking-[0.15em]">
+                                    {t.portfolio.categories?.[activeVideo.category] || activeVideo.category}
+                                </span>
+                                <h4 className="text-white text-sm font-bold truncate">
+                                    {activeVideo.title}
+                                </h4>
+                            </div>
+                            <button
+                                onClick={() => setActiveVideo(null)}
+                                className="shrink-0 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center transition-colors"
+                            >
+                                <X className="w-4 h-4 text-white" />
+                            </button>
+                        </div>
+
+                        {/* ── MOBILE: Iframe fills remaining space ── */}
+                        <div
+                            className="flex-1 w-full md:hidden"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <iframe
+                                src={getEmbedUrl(activeVideo.videoUrl)}
+                                title={activeVideo.title}
+                                className="w-full h-full border-0"
+                                allow="autoplay; fullscreen; picture-in-picture"
+                                allowFullScreen
+                            />
+                        </div>
+
+                        {/* ── DESKTOP: Centered lightbox (unchanged behavior) ── */}
+                        <div
+                            className="hidden md:flex flex-col items-center justify-center w-full max-h-[85vh] select-none"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {/* Desktop close button */}
+                            <button
+                                className="fixed top-6 right-6 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 p-3 rounded-full border border-white/10 transition-colors z-50 shadow-lg"
+                                onClick={() => setActiveVideo(null)}
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+
                             {/* Video Container */}
                             <motion.div
                                 initial={{ scale: 0.9, y: 20 }}
@@ -263,7 +325,6 @@ const PortfolioSection: React.FC = () => {
                                         : 'max-w-[1000px] aspect-video'
                                 }`}
                             >
-                                {/* Video Playback */}
                                 <iframe
                                     src={getEmbedUrl(activeVideo.videoUrl)}
                                     title={activeVideo.title}

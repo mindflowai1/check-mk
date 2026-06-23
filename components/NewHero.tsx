@@ -121,6 +121,7 @@ const NewHero: React.FC = () => {
 
             {/* ═══════════════ NAVBAR (fora do stacking context z-10) ═══════════════ */}
             <motion.header
+                data-navbar
                 variants={{
                     visible: { y: 0, opacity: 1 },
                     hidden: { y: "-100%", opacity: 0 },
