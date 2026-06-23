@@ -286,30 +286,18 @@ const PortfolioSection: React.FC = () => {
                             </button>
                         </div>
 
-                        {/* ── MOBILE: Native video player (controls auto-hide) ── */}
+                        {/* ── MOBILE: Google Drive iframe player ── */}
                         <div
-                            className="flex-1 w-full md:hidden flex items-center justify-center bg-black"
+                            className="flex-1 w-full md:hidden"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <video
-                                key={activeVideo.driveId}
-                                controls
-                                autoPlay
-                                playsInline
-                                controlsList="nodownload noremoteplayback"
-                                disablePictureInPicture
-                                className={`w-full bg-black ${
-                                    activeVideo.isVertical
-                                        ? 'h-full object-contain'
-                                        : 'max-h-full object-contain'
-                                }`}
-                                poster={activeVideo.thumbnail}
-                            >
-                                <source
-                                    src={`https://drive.google.com/uc?export=download&id=${activeVideo.driveId}`}
-                                    type="video/mp4"
-                                />
-                            </video>
+                            <iframe
+                                src={getEmbedUrl(activeVideo.videoUrl)}
+                                title={activeVideo.title}
+                                className="w-full h-full border-0"
+                                allow="autoplay; fullscreen; picture-in-picture"
+                                allowFullScreen
+                            />
                         </div>
 
                         {/* ── DESKTOP: Centered lightbox (unchanged behavior) ── */}
