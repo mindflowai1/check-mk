@@ -10,6 +10,7 @@ import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsOfUse from './components/TermsOfUse';
+import BriefingForm from './components/BriefingForm';
 
 function App() {
   const [currentHash, setCurrentHash] = useState(window.location.hash);
@@ -30,6 +31,8 @@ function App() {
           <PrivacyPolicy />
         ) : currentHash === '#/terms' || currentHash === '#terms' ? (
           <TermsOfUse />
+        ) : currentHash === '#/briefing' || currentHash === '#briefing' ? (
+          <BriefingForm />
         ) : (
           <>
             <NewHero />

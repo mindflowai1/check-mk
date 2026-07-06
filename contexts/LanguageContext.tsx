@@ -159,6 +159,12 @@ const translations = {
       rights: '© 2025 CHECK MKT. Todos os direitos reservados.',
       description: 'A estratégia #1 de Vídeo Marketing desenhada exclusivamente para escalar o mercado imobiliário e construção civil de alto padrão.',
       designed: 'Designed for Performance & Authority'
+    },
+    briefing: {
+      title: 'Briefing de Criação de Site',
+      subtitle: 'Preencha as informações abaixo com o máximo de detalhes possível para iniciarmos a estruturação do seu novo site.',
+      loading: 'Carregando formulário...',
+      backHome: 'Voltar para Home'
     }
   },
   en: {
@@ -311,6 +317,12 @@ const translations = {
       rights: '© 2025 CHECK MKT. All rights reserved.',
       description: 'The #1 Video Marketing strategy designed exclusively to scale high-ticket Real Estate and Construction.',
       designed: 'Designed for Performance & Authority'
+    },
+    briefing: {
+      title: 'Website Briefing Form',
+      subtitle: 'Fill out the information below with as much detail as possible so we can start structuring your new website.',
+      loading: 'Loading form...',
+      backHome: 'Back to Home'
     }
   }
 };

@@ -73,6 +73,9 @@ const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-6 border-t border-white/5 text-[12px] text-white/40 font-medium tracking-wide">
           <p>{t.footer.rights.replace('2025', new Date().getFullYear().toString())}</p>
           <div className="flex items-center gap-6">
+            <a href="#briefing" className="hover:text-white transition-colors">
+              {language === 'pt' ? 'Briefing para Site' : 'Website Briefing'}
+            </a>
             <a href="#privacy" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#terms" className="hover:text-white transition-colors">Terms of Service</a>
           </div>
