@@ -89,12 +89,10 @@ const ReviewsSection: React.FC = () => {
 
                             {/* Client Info */}
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full overflow-hidden bg-slate-100 border border-slate-200">
-                                    <img
-                                        src={review.image}
-                                        alt={review.name}
-                                        className="w-full h-full object-cover filter grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
-                                    />
+                                <div className="w-10 h-10 rounded-full bg-[#43755C]/10 border border-[#43755C]/20 flex items-center justify-center shrink-0 group-hover:bg-[#43755C] transition-all duration-300">
+                                    <span className="font-display font-bold text-[14px] text-[#43755C] group-hover:text-white transition-colors">
+                                        {review.name.charAt(0)}
+                                    </span>
                                 </div>
                                 <div className="flex flex-col">
                                     <h4 className="font-display font-medium text-slate-900 text-[14px] leading-tight mb-0.5 group-hover:text-[#43755C] transition-colors">
