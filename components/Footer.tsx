@@ -58,7 +58,7 @@ const Footer: React.FC = () => {
               Social
             </h4>
             <div className="flex items-center gap-4">
-              <a href="https://instagram.com/check.mkt" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white/50 hover:border-[#62AE88] hover:text-[#62AE88] transition-all shadow-sm">
+              <a href="https://www.instagram.com/checkmkt.us/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white/50 hover:border-[#62AE88] hover:text-[#62AE88] transition-all shadow-sm">
                 <Instagram className="w-4 h-4" />
               </a>
               <a href="#" className="w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white/50 hover:border-[#62AE88] hover:text-[#62AE88] transition-all shadow-sm">
